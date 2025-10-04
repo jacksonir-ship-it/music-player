@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Music Player</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>🎵 My Music Player 🎵</h1>
 
   <div class="player">
-    <!-- JS will fill these -->
-    <img id="song-image" alt="Album art (will load from images folder)" style="width:220px;border-radius:8px;display:block;margin:10px auto;" />
-    <h2 id="song-title" style="min-height:1.2em"></h2>
+    <!-- Album art -->
+    <img src="images/pearls.jpg" alt="Album Art" id="song-image">
 
-    <audio id="audio" preload="metadata"></audio>
+    <!-- Song title -->
+    <h2 id="song-title">Pearls</h2>
 
-    <div class="controls" style="margin-top:10px">
+    <!-- Audio -->
+    <audio id="audio" src="music/pearls.mp3"></audio>
+
+    <!-- Status message -->
+    <p id="status"></p>
+
+    <!-- Controls -->
+    <div class="controls">
       <button id="prev">⏮️</button>
-      <button id="play">▶</button>
+      <button id="play">▶️</button>
       <button id="next">⏭️</button>
     </div>
-
-    <p id="status" style="color:#b00;margin-top:12px;"></p>
   </div>
 
-  <!-- version query forces browsers to fetch the newest script after you commit -->
-  <script src="script.js?ver=2"></script>
-</body>
-</html>
+  <script src="scr
