@@ -1,7 +1,5 @@
-// Simple Music Player Script
+// Music Player Script
 window.addEventListener('DOMContentLoaded', () => {
-  console.log('script.js loaded');
-
   const audio = document.getElementById('audio');
   const songImage = document.getElementById('song-image');
   const songTitle = document.getElementById('song-title');
@@ -10,7 +8,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const nextBtn = document.getElementById('next');
   const status = document.getElementById('status');
 
-  // Your exact songs and images (filenames must match exactly in /music and /images folders)
+  // Your songs — filenames must match exactly
   const songs = [
     { title: 'Pearls', file: 'music/pearls.mp3', image: 'images/pearls.jpg' },
     { title: 'The Hill', file: 'music/the hill.mp3', image: 'images/the hill.jpg' },
@@ -20,8 +18,64 @@ window.addEventListener('DOMContentLoaded', () => {
   let current = 0;
 
   function setStatus(msg) {
-    if (status) status.textContent = msg || '';
+    if (status) status.textContent = msg;
     console.log(msg);
   }
 
-  function loadS
+  function loadSong(index) {
+    const song = songs[index];
+    audio.src = encodeURI(song.file);
+    songImage.src = encodeURI(song.image);
+    songTitle.textContent = song.title;
+
+    audio.onerror = () => setStatus('⚠️ Could not load audio: ' + song.file);
+    songImage.onerror = () => setStatus('⚠️ Could not load image: ' + song.image);
+
+    setStatus('Loaded: ' + song.title);
+  }
+
+  function playSong() {
+    audio.play().then(() => {
+      playBtn.textContent = '⏸';
+      setStatus('Playing: ' + songs[current].title);
+    }).catch(err => {
+      console.warn(err);
+      setStatus('Click the play button to start');
+    });
+  }
+
+  function pauseSong() {
+    audio.pause();
+    playBtn.textContent = '▶️';
+    setStatus('Paused');
+  }
+
+  playBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      playSong();
+    } else {
+      pauseSong();
+    }
+  });
+
+  prevBtn.addEventListener('click', () => {
+    current = (current - 1 + songs.length) % songs.length;
+    loadSong(current);
+    playSong();
+  });
+
+  nextBtn.addEventListener('click', () => {
+    current = (current + 1) % songs.length;
+    loadSong(current);
+    playSong();
+  });
+
+  audio.addEventListener('ended', () => {
+    current = (current + 1) % songs.length;
+    loadSong(current);
+    playSong();
+  });
+
+  // Load the first song initially
+  loadSong(current);
+});
