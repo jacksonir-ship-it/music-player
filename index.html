@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>My Music Player</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <h1>🎵 My Music Player 🎵</h1>
 
   <div class="player">
-    <!-- These will be filled in by script.js -->
-    <img src="" alt="Album Art" id="song-image">
-    <h2 id="song-title"></h2>
-    <audio id="audio"></audio>
+    <!-- JS will fill these -->
+    <img id="song-image" alt="Album art (will load from images folder)" style="width:220px;border-radius:8px;display:block;margin:10px auto;" />
+    <h2 id="song-title" style="min-height:1.2em"></h2>
 
-    <div class="controls">
+    <audio id="audio" preload="metadata"></audio>
+
+    <div class="controls" style="margin-top:10px">
       <button id="prev">⏮️</button>
       <button id="play">▶</button>
       <button id="next">⏭️</button>
     </div>
+
+    <p id="status" style="color:#b00;margin-top:12px;"></p>
   </div>
 
-  <script src="script.js"></script>
+  <!-- version query forces browsers to fetch the newest script after you commit -->
+  <script src="script.js?ver=2"></script>
 </body>
 </html>
-
