@@ -1,0 +1,33 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  text-align: center;
+  padding: 30px;
+}
+
+.player {
+  background: #fff;
+  border-radius: 20px;
+  padding: 20px;
+  display: inline-block;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+}
+
+.player img {
+  width: 200px;
+  border-radius: 10px;
+}
+
+.controls button {
+  font-size: 20px;
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#play {
+  background: #4CAF50;
+  color: white;
+}
