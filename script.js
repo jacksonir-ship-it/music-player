@@ -85,7 +85,16 @@ window.addEventListener('DOMContentLoaded', () => {
     playSong();
   });
 
-  // Update progress bar and time display
+  // Update duration once metadata is loaded
+  audio.addEventListener('loadedmetadata', () => {
+    const duration = audio.duration;
+    let durMinutes = Math.floor(duration / 60);
+    let durSeconds = Math.floor(duration % 60);
+    if (durSeconds < 10) durSeconds = '0' + durSeconds;
+    durationEl.textContent = `${durMinutes}:${durSeconds}`;
+  });
+
+  // Update progress bar and current time
   audio.addEventListener('timeupdate', () => {
     const { duration, currentTime } = audio;
     const percent = (currentTime / duration) * 100;
@@ -96,14 +105,6 @@ window.addEventListener('DOMContentLoaded', () => {
     let seconds = Math.floor(currentTime % 60);
     if (seconds < 10) seconds = '0' + seconds;
     currentTimeEl.textContent = `${minutes}:${seconds}`;
-
-    // Duration
-    if (duration) {
-      let durMinutes = Math.floor(duration / 60);
-      let durSeconds = Math.floor(duration % 60);
-      if (durSeconds < 10) durSeconds = '0' + durSeconds;
-      durationEl.textContent = `${durMinutes}:${durSeconds}`;
-    }
   });
 
   // Click on progress bar to seek
