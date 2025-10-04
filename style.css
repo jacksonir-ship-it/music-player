@@ -1,33 +1,61 @@
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
-  text-align: center;
-  padding: 30px;
+/* =========================
+   Music Player Styles
+   ========================= */
+
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+/* Reset and box-sizing */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
+/* Body styling */
+body {
+  font-family: 'Lato', sans-serif;
+  background: linear-gradient(0deg, #f7f7f7 24%, #fcdddd 92%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Main title */
+h1 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+/* Player container */
 .player {
   background: #fff;
-  border-radius: 20px;
-  padding: 20px;
-  display: inline-block;
-  box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(252, 169, 169, 0.6);
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.player img {
-  width: 200px;
-  border-radius: 10px;
+/* Album art */
+.player img#song-image {
+  width: 220px;
+  height: 220px;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
 }
 
-.controls button {
-  font-size: 20px;
-  margin: 10px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+/* Optional: rotate while playing */
+.player.playing img#song-image {
+  animation: rotate 5s linear infinite;
 }
 
-#play {
-  background: #4CAF50;
-  color: white;
-}
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg);
