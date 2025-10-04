@@ -8,7 +8,12 @@ window.addEventListener('DOMContentLoaded', () => {
   const nextBtn = document.getElementById('next');
   const status = document.getElementById('status');
 
-  // Your songs — filenames must match exactly
+  const progress = document.getElementById('progress');
+  const progressContainer = document.getElementById('progress-container');
+  const currentTimeEl = document.getElementById('current-time');
+  const durationEl = document.getElementById('duration');
+
+  // Songs — filenames must match exactly
   const songs = [
     { title: 'Pearls', file: 'music/pearls.mp3', image: 'images/pearls.jpg' },
     { title: 'The Hill', file: 'music/the hill.mp3', image: 'images/the hill.jpg' },
@@ -22,6 +27,7 @@ window.addEventListener('DOMContentLoaded', () => {
     console.log(msg);
   }
 
+  // Load a song
   function loadSong(index) {
     const song = songs[index];
     audio.src = encodeURI(song.file);
@@ -34,6 +40,7 @@ window.addEventListener('DOMContentLoaded', () => {
     setStatus('Loaded: ' + song.title);
   }
 
+  // Play / Pause
   function playSong() {
     audio.play().then(() => {
       playBtn.textContent = '⏸';
@@ -58,6 +65,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Previous / Next song
   prevBtn.addEventListener('click', () => {
     current = (current - 1 + songs.length) % songs.length;
     loadSong(current);
@@ -70,12 +78,42 @@ window.addEventListener('DOMContentLoaded', () => {
     playSong();
   });
 
+  // Auto next song when current ends
   audio.addEventListener('ended', () => {
     current = (current + 1) % songs.length;
     loadSong(current);
     playSong();
   });
 
-  // Load the first song initially
+  // Update progress bar and time display
+  audio.addEventListener('timeupdate', () => {
+    const { duration, currentTime } = audio;
+    const percent = (currentTime / duration) * 100;
+    progress.style.width = `${percent}%`;
+
+    // Current time
+    let minutes = Math.floor(currentTime / 60);
+    let seconds = Math.floor(currentTime % 60);
+    if (seconds < 10) seconds = '0' + seconds;
+    currentTimeEl.textContent = `${minutes}:${seconds}`;
+
+    // Duration
+    if (duration) {
+      let durMinutes = Math.floor(duration / 60);
+      let durSeconds = Math.floor(duration % 60);
+      if (durSeconds < 10) durSeconds = '0' + durSeconds;
+      durationEl.textContent = `${durMinutes}:${durSeconds}`;
+    }
+  });
+
+  // Click on progress bar to seek
+  progressContainer.addEventListener('click', (e) => {
+    const width = progressContainer.clientWidth;
+    const clickX = e.offsetX;
+    const duration = audio.duration;
+    audio.currentTime = (clickX / width) * duration;
+  });
+
+  // Load first song initially
   loadSong(current);
 });
